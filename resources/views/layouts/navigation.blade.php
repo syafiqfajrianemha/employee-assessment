@@ -52,12 +52,6 @@
                             </x-dropdown-link>
                         @endcan
 
-                        @can('access-admin-manager')
-                            <x-dropdown-link :href="route('employee.index')">
-                                {{ __('Employee') }}
-                            </x-dropdown-link>
-                        @endcan
-
                         <hr class="mx-3">
 
                         <!-- Authentication -->
@@ -117,12 +111,6 @@
                 @can('access-admin')
                     <x-responsive-nav-link :href="route('user.index')">
                         {{ __('Users') }}
-                    </x-responsive-nav-link>
-                @endcan
-
-                @can('access-admin-manager')
-                    <x-responsive-nav-link :href="route('employee.index')">
-                        {{ __('Employee') }}
                     </x-responsive-nav-link>
                 @endcan
 

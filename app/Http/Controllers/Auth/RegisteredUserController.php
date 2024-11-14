@@ -38,12 +38,16 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'role' => ['required'],
+            'salary' => ['integer'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => $request->role,
+            'salary' => $request->salary,
             'password' => Hash::make($request->password),
         ]);
 
@@ -51,6 +55,44 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
 
+        return redirect(route('user.index', absolute: false));
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('user.edit', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
+            'role' => ['required'],
+            'salary' => ['integer'],
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+            'salary' => $request->salary,
+        ]);
+
+        // event(new Registered($user));
+
+        // Auth::login($user);
+
+        return redirect(route('user.index', absolute: false));
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
         return redirect(route('user.index', absolute: false));
     }
 }

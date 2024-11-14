@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->integer('salary')->default(0);
             $table->enum('role', ['admin', 'employee', 'manager', 'finance', 'program', 'fundraising'])->default('employee');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
