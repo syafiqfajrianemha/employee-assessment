@@ -13,8 +13,8 @@
                     {{-- <button class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
                         Tambah Data
                     </button> --}}
-                    <x-primary-href :href="route('register')">
-                        {{ __('Add User') }}
+                    <x-primary-href :href="route('program.create')">
+                        {{ __('Add Program') }}
                     </x-primary-href>
                 </div>
 
@@ -24,36 +24,36 @@
                             <tr class="w-full bg-gray-100 border-b">
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">No</th>
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Name</th>
-                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Email</th>
-                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Salary</th>
-                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Role</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Description</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Start</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">End</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Duration</th>
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($users as $user)
+                            @forelse ($programs as $program)
                                 <tr class="border-b hover:bg-gray-50">
                                     <td class="px-6 py-4 text-sm text-gray-700">{{ $loop->iteration }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700">{{ $user->name }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700">{{ $user->email }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700">
-                                        {{ $user->salary === 0 ? "-" : "Rp. " . number_format($user->salary, 0, '.', '.') }}
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-700">{{ $user->role }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ $program->name }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ $program->description }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ \Carbon\Carbon::parse($program->start_date)->translatedFormat('d F Y') }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ \Carbon\Carbon::parse($program->end_date)->translatedFormat('d F Y') }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ $program->duration }}</td>
                                     <td class="px-6 py-4 inline-flex">
-                                        <x-primary-href :href="route('user.edit', $user->id)" class="mr-2">
+                                        <x-primary-href :href="route('program.edit', $program->id)" class="mr-2">
                                             {{ __('Edit') }}
                                         </x-primary-href>
-                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                        <form action="{{ route('program.destroy', $program->id) }}" method="POST">
                                             @csrf
-                                            @method("DELETE")
+                                            @method('DELETE')
                                             <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
                             @empty
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td class="text-red-800 text-center p-6" colspan="6">There is no data.</td>
+                                    <td class="text-red-800 text-center p-6" colspan="7">There is no data.</td>
                                 </tr>
                             @endforelse
                         </tbody>
