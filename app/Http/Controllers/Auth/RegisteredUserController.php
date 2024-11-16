@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
 
-        return redirect(route('user.index', absolute: false));
+        return redirect(route('user.index', absolute: false))->with('message', 'User has been created');
     }
 
     public function edit($id)
@@ -86,13 +86,13 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
 
-        return redirect(route('user.index', absolute: false));
+        return redirect(route('user.index', absolute: false))->with('message', 'User has been updated');
     }
 
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect(route('user.index', absolute: false));
+        return redirect(route('user.index', absolute: false))->with('message', 'User has been deleted');
     }
 }

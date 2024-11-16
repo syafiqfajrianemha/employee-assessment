@@ -53,7 +53,7 @@ class ProgramController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect(route('program.index', absolute: false));
+        return redirect(route('program.index', absolute: false))->with('message', 'Program has been created');
     }
 
     /**
@@ -94,7 +94,7 @@ class ProgramController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect(route('program.index', absolute: false));
+        return redirect(route('program.index', absolute: false))->with('message', 'Program has been updated');
     }
 
     /**
@@ -104,6 +104,6 @@ class ProgramController extends Controller
     {
         $program = Program::findOrFail($id);
         $program->delete();
-        return redirect(route('program.index', absolute: false));
+        return redirect(route('program.index', absolute: false))->with('message', 'Program has been deleted');
     }
 }
