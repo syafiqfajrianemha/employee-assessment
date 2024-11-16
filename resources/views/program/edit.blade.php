@@ -1,4 +1,8 @@
 <x-app-layout>
+    @push('style')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    @endpush
+
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -49,4 +53,18 @@
             </div>
         </div>
     </div>
+
+    @push('script')
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                flatpickr("#date", {
+                    dateFormat: "Y-m-d",
+                    altInput: true,
+                    altFormat: "j F Y",
+                    allowInput: true,
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>
