@@ -6,21 +6,21 @@
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ $user->name }}" required autocomplete="name" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ !old('name') ? $user->name : old('name') }}" required autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ $user->email }}" required autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ !old('email') ? $user->email : old('email') }}" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <div class="mt-4">
             <x-input-label for="role" :value="__('Role')" />
             <x-select-option id="role" class="block mt-1 w-full" name="role" :value="old('role')" required>
-                <option selected disabled>-------------</option>
+                <option selected disabled>Choose Role</option>
                 <option value="admin" @if ($user->role == "admin") selected @endif>Admin</option>
                 <option value="employee" @if ($user->role == "employee") selected @endif>Employee</option>
                 <option value="manager" @if ($user->role == "manager") selected @endif>Manager</option>
@@ -33,7 +33,7 @@
 
         <div class="mt-4">
             <x-input-label for="salary" :value="__('Salary')" />
-            <x-text-input id="salary" class="block mt-1 w-full" type="number" min="0" name="salary" value="{{ $user->salary }}" />
+            <x-text-input id="salary" class="block mt-1 w-full" type="number" min="0" name="salary" value="{{ !old('salary') ? $user->salary : old('salary') }}" />
             <x-input-error :messages="$errors->get('salary')" class="mt-2" />
         </div>
 

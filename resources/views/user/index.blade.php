@@ -41,14 +41,14 @@
                                         {{ $user->salary === 0 ? "-" : "Rp. " . number_format($user->salary, 0, '.', '.') }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-700">{{ $user->role }}</td>
-                                    <td class="px-6 py-4 inline-flex">
-                                        <x-primary-href :href="route('user.edit', $user->id)" class="mr-2">
+                                    <td class="px-6 py-4 text-sm text-gray-700">
+                                        <x-primary-href :href="route('user.edit', $user->id)" class="mb-2">
                                             {{ __('Edit') }}
                                         </x-primary-href>
                                         <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="form-delete">
                                             @csrf
                                             @method("DELETE")
-                                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">Delete</button>
+                                            <button type="submit" class="px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">Delete</button>
                                         </form>
                                     </td>
                                 </tr>

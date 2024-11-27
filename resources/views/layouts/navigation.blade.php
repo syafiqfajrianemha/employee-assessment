@@ -17,7 +17,7 @@
                     </x-nav-link>
                 </div>
 
-                @can('access-admin-program')
+                @can('access-admin-manager-program')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('program.index')" :active="request()->routeIs('program.index')">
                             {{ __('Program') }}
@@ -25,10 +25,22 @@
                     </div>
                 @endcan
 
-                @can('access-admin-manager-program')
+                @can('access-admin-manager')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('roc')" :active="request()->routeIs('roc')">
-                            {{ __('Rank Order Centroid') }}
+                        <x-nav-link :href="route('indicator.index')" :active="request()->routeIs('indicator.index')">
+                            {{ __('Indicator') }}
+                        </x-nav-link>
+                    </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('indicator.index')" :active="request()->routeIs('indicator.index')">
+                            {{ __('Calculate') }}
+                        </x-nav-link>
+                    </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('indicator.index')" :active="request()->routeIs('indicator.index')">
+                            {{ __('Bonus') }}
                         </x-nav-link>
                     </div>
                 @endcan
@@ -104,10 +116,22 @@
             </div>
         @endcan
 
-        @can('access-admin-manager-program')
+        @can('access-admin-manager')
             <div class="pt-2 pb-3 space-y-1">
-                <x-responsive-nav-link :href="route('roc')" :active="request()->routeIs('roc')">
-                    {{ __('Rank Order Centroid') }}
+                <x-responsive-nav-link :href="route('indicator.index')" :active="request()->routeIs('indicator.index')">
+                    {{ __('Indicator') }}
+                </x-responsive-nav-link>
+            </div>
+
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('indicator.index')" :active="request()->routeIs('indicator.index')">
+                    {{ __('Calculate') }}
+                </x-responsive-nav-link>
+            </div>
+
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('indicator.index')" :active="request()->routeIs('indicator.index')">
+                    {{ __('Bonus') }}
                 </x-responsive-nav-link>
             </div>
         @endcan

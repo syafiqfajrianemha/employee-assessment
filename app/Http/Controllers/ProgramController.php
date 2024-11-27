@@ -70,6 +70,7 @@ class ProgramController extends Controller
     public function edit($id)
     {
         $program = Program::findOrFail($id);
+
         return view('program.edit', compact('program'));
     }
 
@@ -103,7 +104,9 @@ class ProgramController extends Controller
     public function destroy($id)
     {
         $program = Program::findOrFail($id);
+
         $program->delete();
+
         return redirect(route('program.index', absolute: false))->with('message', 'Program has been deleted');
     }
 }

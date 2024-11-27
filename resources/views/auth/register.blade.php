@@ -19,13 +19,13 @@
         <div class="mt-4">
             <x-input-label for="role" :value="__('Role')" />
             <x-select-option id="role" class="block mt-1 w-full" name="role" :value="old('role')" required>
-                <option selected disabled>-------------</option>
-                <option value="admin">Admin</option>
-                <option value="employee">Employee</option>
-                <option value="manager">Manager</option>
-                <option value="finance">Finance</option>
-                <option value="program">Program</option>
-                <option value="fundraising">Fundraising</option>
+                <option selected disabled>Choose Role</option>
+                <option {{ old('role') == "admin" ? "selected" : "" }} value="admin">Admin</option>
+                <option {{ old('role') == "employee" ? "selected" : "" }} value="employee">Employee</option>
+                <option {{ old('role') == "manager" ? "selected" : "" }} value="manager">Manager</option>
+                <option {{ old('role') == "finance" ? "selected" : "" }} value="finance">Finance</option>
+                <option {{ old('role') == "program" ? "selected" : "" }} value="program">Program</option>
+                <option {{ old('role') == "fundraising" ? "selected" : "" }} value="fundraising">Fundraising</option>
             </x-select-option>
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
         </div>

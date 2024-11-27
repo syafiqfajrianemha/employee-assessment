@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Program extends Model
+class Indicator extends Model
 {
     protected $guarded = ['id'];
 
-    public function indicators()
+    public function program()
     {
-        return $this->hasMany(Indicator::class);
+        return $this->belongsTo(Program::class);
     }
 }
