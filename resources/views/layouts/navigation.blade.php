@@ -66,7 +66,7 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        @can('access-admin')
+                        @can('access-admin-manager')
                             <x-dropdown-link :href="route('user.index')">
                                 {{ __('Users') }}
                             </x-dropdown-link>
@@ -148,7 +148,7 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                @can('access-admin')
+                @can('access-admin-manager')
                     <x-responsive-nav-link :href="route('user.index')">
                         {{ __('Users') }}
                     </x-responsive-nav-link>

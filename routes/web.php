@@ -18,10 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/user', [RegisteredUserController::class, 'index'])->middleware(RoleCheck::class.':admin')->name('user.index');
-    Route::get('/user/{id}', [RegisteredUserController::class, 'edit'])->middleware(RoleCheck::class.':admin')->name('user.edit');
-    Route::patch('/user/{id}', [RegisteredUserController::class, 'update'])->middleware(RoleCheck::class.':admin')->name('user.update');
-    Route::delete('/user/{id}', [RegisteredUserController::class, 'destroy'])->middleware(RoleCheck::class.':admin')->name('user.destroy');
+    Route::get('/user', [RegisteredUserController::class, 'index'])->middleware(RoleCheck::class.':admin,manager')->name('user.index');
+    Route::get('/user/{id}', [RegisteredUserController::class, 'edit'])->middleware(RoleCheck::class.':admin,manager')->name('user.edit');
+    Route::patch('/user/{id}', [RegisteredUserController::class, 'update'])->middleware(RoleCheck::class.':admin,manager')->name('user.update');
+    Route::delete('/user/{id}', [RegisteredUserController::class, 'destroy'])->middleware(RoleCheck::class.':admin,manager')->name('user.destroy');
 
     Route::get('/program', [ProgramController::class, 'index'])->middleware(RoleCheck::class.':admin,program,manager')->name('program.index');
     Route::get('/program/create', [ProgramController::class, 'create'])->middleware(RoleCheck::class.':admin,program')->name('program.create');
