@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('purpose');
             $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date');
+            $table->enum('status', ['waiting', 'approved', 'rejected'])->default('waiting');
+            $table->text('rejected_note')->nullable();
             $table->timestamps();
         });
     }

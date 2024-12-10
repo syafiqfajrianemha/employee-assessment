@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/program', [ProgramController::class, 'store'])->middleware(RoleCheck::class.':admin,program')->name('program.store');
     Route::patch('/program/{id}', [ProgramController::class, 'update'])->middleware(RoleCheck::class.':admin,program')->name('program.update');
     Route::delete('/program/{id}', [ProgramController::class, 'destroy'])->middleware(RoleCheck::class.':admin,program')->name('program.destroy');
+    Route::post('/program/{id}', [ProgramController::class, 'updateStatus'])->middleware(RoleCheck::class.':admin,manager')->name('program.update.status');
 
     Route::get('/indicator', [IndicatorController::class, 'index'])->middleware(RoleCheck::class.':admin,manager')->name('indicator.index');
     Route::get('/indicator/create', [IndicatorController::class, 'create'])->middleware(RoleCheck::class.':admin,manager')->name('indicator.create');

@@ -13,17 +13,19 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $programs = Program::all();
+        $limit = 10;
+        $programs = Program::paginate($limit);
+        $no = $limit * ($programs->currentPage() - 1);
 
         foreach ($programs as $program) {
             $startDate = Carbon::parse($program->start_date);
             $endDate = Carbon::parse($program->end_date);
             $days = $startDate->diffInDays($endDate);
 
-            $program->duration = "{$days} days";
+            $program->duration = "{$days} hari";
         }
 
-        return view('program.index', compact('programs'));
+        return view('program.index', compact('programs', 'no'));
     }
 
     /**
@@ -41,19 +43,21 @@ class ProgramController extends Controller
     {
         $request->validate([
             'name' => ['required'],
+            'purpose' => ['required'],
+            'description' => ['nullable'],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date'],
-            'description' => ['required'],
         ]);
 
         Program::create([
             'name' => $request->name,
+            'purpose' => $request->purpose,
+            'description' => $request->description,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'description' => $request->description,
         ]);
 
-        return redirect(route('program.index', absolute: false))->with('message', 'Program has been created');
+        return redirect(route('program.index', absolute: false))->with('message', 'Program Berhasil di Tambahkan');
     }
 
     /**
@@ -81,21 +85,24 @@ class ProgramController extends Controller
     {
         $request->validate([
             'name' => ['required'],
+            'purpose' => ['required'],
+            'description' => ['nullable'],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date'],
-            'description' => ['required'],
         ]);
 
         $program = Program::findOrFail($id);
 
         $program->update([
             'name' => $request->name,
+            'purpose' => $request->purpose,
+            'description' => $request->description,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'description' => $request->description,
+            'status' => 'waiting'
         ]);
 
-        return redirect(route('program.index', absolute: false))->with('message', 'Program has been updated');
+        return redirect(route('program.index', absolute: false))->with('message', 'Program Berhasil di Edit');
     }
 
     /**
@@ -107,6 +114,30 @@ class ProgramController extends Controller
 
         $program->delete();
 
-        return redirect(route('program.index', absolute: false))->with('message', 'Program has been deleted');
+        return redirect(route('program.index', absolute: false))->with('message', 'Program Berhasil di Hapus');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => ['required'],
+        ]);
+
+        if ($request->status === 'rejected') {
+            $request->validate([
+                'rejected_note' => ['required'],
+            ]);
+        }
+
+        $program = Program::findOrFail($id);
+
+        $program->update([
+            'status' => $request->status,
+            'rejected_note' => $request->rejected_note
+        ]);
+
+        $status = $request->status === 'approved' ? 'Disetujui' : 'Ditolak';
+
+        return redirect(route('program.index', absolute: false))->with('message', 'Program Berhasil di ' . $status);
     }
 }
