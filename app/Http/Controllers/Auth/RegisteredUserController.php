@@ -95,4 +95,10 @@ class RegisteredUserController extends Controller
         $user->delete();
         return redirect(route('user.index', absolute: false))->with('message', 'User has been deleted');
     }
+
+    public function getUsers()
+    {
+        $users = User::where('role', 'fundraising')->get();
+        return response()->json($users);
+    }
 }

@@ -53,7 +53,7 @@
 
                         <div class="mt-4">
                             <x-input-label for="description" :value="__('Deskripsi Program')" />
-                            <textarea id="description" name="description" rows="4" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>{{ !old('description') ? $program->description : old('description') }}</textarea>
+                            <textarea id="description" name="description" rows="4" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ !old('description') ? $program->description : old('description') }}</textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 

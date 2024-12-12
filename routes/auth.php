@@ -33,7 +33,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register')->middleware(RoleCheck::class.':admin');
+        ->name('register')->middleware(RoleCheck::class.':admin,manager');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 

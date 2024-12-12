@@ -5,7 +5,7 @@
                 <div class="p-6">
                     <header>
                         <h2 class="text-lg font-medium text-gray-900">
-                            {{ __('Edit Indicator') }}
+                            {{ __('Edit Indikator') }}
                         </h2>
 
                         <p class="mt-1 text-sm text-gray-600">
@@ -18,9 +18,9 @@
                         @method('PATCH')
 
                         <div class="mt-4">
-                            <x-input-label for="program" :value="__('Program')" />
+                            <x-input-label for="program" :value="__('Program*')" />
                             <x-select-option id="program" class="block mt-1 w-full" name="program_id" :value="old('program')" required>
-                                <option selected disabled>Choose Program</option>
+                                <option selected disabled>Pilih Program</option>
                                 @foreach ($programs as $program)
                                 <option value="{{ $program->id }}"
                                     @if ($program->id == $indicator->program_id)
@@ -34,21 +34,21 @@
                         </div>
 
                         <div>
-                            <x-input-label for="name" :value="__('Name')" />
+                            <x-input-label for="name" :value="__('Nama Indikator*')" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" value="{{ !old('name') ? $indicator->name : old('name') }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                         </div>
 
                         <div class="mt-4">
-                            <x-input-label for="description" :value="__('Description')" />
-                            <textarea id="description" name="description" rows="4" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>{{ !old('description') ? $indicator->description : old('description') }}</textarea>
+                            <x-input-label for="description" :value="__('Deskripsi')" />
+                            <textarea id="description" name="description" rows="4" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ !old('description') ? $indicator->description : old('description') }}</textarea>
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
                         <div class="mt-4">
-                            <x-input-label for="rank" :value="__('Rank')" />
+                            <x-input-label for="rank" :value="__('Urutan Prioritas*')" />
                             <x-select-option id="rank" class="block mt-1 w-full" name="rank" :value="old('rank')" required>
-                                <option selected disabled>Choose Rank</option>
+                                <option selected disabled>Pilih Urutan Prioritas</option>
                                 <option value="1" @if ($indicator->rank == 1) selected @endif>1</option>
                                 <option value="2" @if ($indicator->rank == 2) selected @endif>2</option>
                                 <option value="3" @if ($indicator->rank == 3) selected @endif>3</option>
@@ -64,19 +64,19 @@
                         </div>
 
                         <div>
-                            <x-input-label for="target" :value="__('Target')" />
+                            <x-input-label for="target" :value="__('Target*')" />
                             <x-text-input id="target" name="target" type="number" min="0" class="mt-1 block w-full" value="{{ !old('target') ? $indicator->target : old('target') }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('target')" />
                         </div>
 
                         <div>
-                            <x-input-label for="unit" :value="__('Unit')" />
+                            <x-input-label for="unit" :value="__('Unit*')" />
                             <x-text-input id="unit" name="unit" type="text" class="mt-1 block w-full" value="{{ !old('unit') ? $indicator->unit : old('unit') }}" required />
                             <x-input-error class="mt-2" :messages="$errors->get('unit')" />
                         </div>
 
                         <div class="flex items-center gap-4">
-                            <x-primary-button>{{ __('Save') }}</x-primary-button>
+                            <x-primary-button>{{ __('Edit') }}</x-primary-button>
                         </div>
                     </form>
                 </div>

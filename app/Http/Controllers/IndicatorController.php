@@ -14,9 +14,13 @@ class IndicatorController extends Controller
      */
     public function index()
     {
-        $indicators = Indicator::orderBy('id', 'desc')->get();
+        $limit = 10;
+        $indicators = Indicator::orderBy('id', 'desc')->paginate($limit);
+        $no = $limit * ($indicators->currentPage() - 1);
 
-        return view('indicator.index', compact('indicators'));
+        $programs = Program::where('status', 'approved')->get();
+
+        return view('indicator.index', compact('indicators', 'no', 'programs'));
     }
 
     /**
@@ -24,7 +28,7 @@ class IndicatorController extends Controller
      */
     public function create()
     {
-        $programs = Program::all();
+        $programs = Program::where('status', 'approved')->get();
 
         return view('indicator.create', compact('programs'));
     }
@@ -54,7 +58,7 @@ class IndicatorController extends Controller
 
         $this->recalculateROCWeights($request->program_id);
 
-        return redirect(route('indicator.index', absolute: false))->with('message', 'Indicator has been created');
+        return redirect(route('indicator.index', absolute: false))->with('message', 'Indikator Berhasil di Tambahkan');
     }
 
     /**
@@ -71,7 +75,7 @@ class IndicatorController extends Controller
     public function edit($id)
     {
         $indicator = Indicator::findOrFail($id);
-        $programs = Program::all();
+        $programs = Program::where('status', 'approved')->get();
 
         return view('indicator.edit', compact('indicator', 'programs'));
     }
@@ -105,7 +109,7 @@ class IndicatorController extends Controller
             $this->recalculateROCWeights($indicator->program_id);
         }
 
-        return redirect(route('indicator.index', absolute: false))->with('message', 'Indicator has been updated');
+        return redirect(route('indicator.index', absolute: false))->with('message', 'Indikator Berhasil di Edit');
     }
 
     /**
@@ -121,7 +125,7 @@ class IndicatorController extends Controller
         $this->recalculateRanks($programId);
         $this->recalculateROCWeights($programId);
 
-        return redirect(route('indicator.index', absolute: false))->with('message', 'Indicator has been deleted');
+        return redirect(route('indicator.index', absolute: false))->with('message', 'Indikator Berhasil di Hapus');
     }
 
     /**
@@ -163,5 +167,14 @@ class IndicatorController extends Controller
                 'roc_weight' => round($rocWeight, 2),
             ]);
         }
+    }
+
+    public function filter(Request $request)
+    {
+        $limit = 10;
+        $indicators = Indicator::where('program_id', $request->programId)->paginate($limit);
+        $no = $limit * ($indicators->currentPage() - 1);
+
+        return view('indicator._list', compact('indicators', 'no'));
     }
 }

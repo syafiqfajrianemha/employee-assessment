@@ -9,14 +9,22 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="pt-6 px-6 text-gray-900 @if (Auth::user()->role === 'manager') hidden @endif">
+                <div class="pt-6 px-6 text-gray-900">
                     {{-- {{ __("User Page.") }} --}}
                     {{-- <button class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
                         Tambah Data
                     </button> --}}
-                    <x-primary-href :href="route('program.create')">
-                        {{ __('Tambah Program') }}
-                    </x-primary-href>
+                    @if (Auth::user()->role === 'program')
+                        <x-primary-href :href="route('program.create')">
+                            {{ __('Tambah Program') }}
+                        </x-primary-href>
+                    @endif
+
+                    @if (Auth::user()->role === 'manager')
+                        <x-primary-href :href="route('assign.index')">
+                            {{ __('Edit Assign') }}
+                        </x-primary-href>
+                    @endif
                 </div>
 
                 <div class="overflow-x-auto p-6">
@@ -62,6 +70,7 @@
                                                 </form>
                                             </td>
                                         @endif
+                                        @if ($program->status === 'approved') <td class="px-6 py-4 text-sm text-gray-700">-</td> @endif
                                     @endif
                                     @if (Auth::user()->role === 'manager')
                                         @if ($program->status !== 'approved' && $program->status !== 'rejected')
@@ -79,8 +88,17 @@
                                                 </form>
                                             </td>
                                         @endif
+                                        @if ($program->status === 'approved')
+                                            <td class="px-6 py-4 text-sm text-gray-700">
+                                                <form action="{{ route('assign.store') }}" method="POST" class="form-assign" data-program-id="{{ $program->id }}" data-program-name="{{ $program->name }}">
+                                                    @csrf
+                                                    <input type="hidden" name="program_id" value="{{ $program->id }}">
+                                                    <input type="hidden" name="user_id" class="user_id">
+                                                    <button type="submit" class="px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">Assign</button>
+                                                </form>
+                                            </td>
+                                        @endif
                                     @endif
-                                    @if ($program->status === 'approved') <td class="px-6 py-4 text-sm text-gray-700">👍</td> @endif
                                 </tr>
                             @empty
                                 <tr class="border-b hover:bg-gray-50">
@@ -99,5 +117,61 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="{{ asset('js/main.js') }}"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('.form-assign button').on('click', function(e) {
+                    e.preventDefault(); // Mencegah submit form langsung
+
+                    // Ambil form terkait tombol yang diklik
+                    const form = $(this).closest('.form-assign');
+                    const programId = form.data('program-id');
+                    const programName = form.data('program-name');
+
+                    // Ambil data users dari server
+                    $.ajax({
+                        url: '{{ route("users.get") }}', // Pastikan route ini mengembalikan data users
+                        type: 'GET',
+                        success: function(users) {
+                            // Buat select option HTML
+                            let selectOptions = '<select id="userSelect" class="swal2-input">';
+                            users.forEach(function(user) {
+                                selectOptions += `<option value="${user.id}">${user.name}</option>`;
+                            });
+                            selectOptions += '</select>';
+
+                            // Tampilkan SweetAlert dengan select
+                            Swal.fire({
+                                title: `${programName} Akan Di Assign Ke`,
+                                html: selectOptions,
+                                showCancelButton: true,
+                                confirmButtonText: 'Assign',
+                                cancelButtonText: 'Batal',
+                                preConfirm: () => {
+                                    const selectedUserId = Swal.getPopup().querySelector('#userSelect').value;
+                                    if (!selectedUserId) {
+                                        Swal.showValidationMessage('Anda harus memilih user!');
+                                    }
+                                    return selectedUserId;
+                                }
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    const selectedUserId = result.value;
+
+                                    // Isi input hidden `user_id` dengan user yang dipilih
+                                    form.find('.user_id').val(selectedUserId);
+
+                                    // Submit form
+                                    form.submit();
+                                }
+                            });
+                        },
+                        error: function() {
+                            Swal.fire('Error', 'Gagal memuat data user', 'error');
+                        }
+                    });
+                });
+            });
+        </script>
     @endpush
 </x-app-layout>
