@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AssignController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\BonusController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IndicatorController;
+use App\Http\Controllers\PerformanceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Middleware\RoleCheck;
@@ -45,6 +47,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/assign', [AssignController::class, 'store'])->middleware(RoleCheck::class.':admin,manager')->name('assign.store');
     Route::patch('/assign/{id}', [AssignController::class, 'update'])->middleware(RoleCheck::class.':admin,manager')->name('assign.update');
     Route::delete('/assign/{id}', [AssignController::class, 'destroy'])->middleware(RoleCheck::class.':admin,manager')->name('assign.destroy');
+
+    Route::get('/calculate', [PerformanceController::class, 'index'])->middleware(RoleCheck::class.':admin,manager')->name('calculate.index');
+    Route::post('/calculate', [PerformanceController::class, 'store'])->middleware(RoleCheck::class.':admin,manager')->name('calculate.store');
+    Route::get('/calculate/create/{userId}/{programId}', [PerformanceController::class, 'create'])->middleware(RoleCheck::class.':admin,manager')->name('calculate.create');
+    // Route::get('/program/{id}', [ProgramController::class, 'edit'])->middleware(RoleCheck::class.':admin,program')->name('program.edit');
+    // Route::patch('/program/{id}', [ProgramController::class, 'update'])->middleware(RoleCheck::class.':admin,program')->name('program.update');
+    // Route::delete('/program/{id}', [ProgramController::class, 'destroy'])->middleware(RoleCheck::class.':admin,program')->name('program.destroy');
+    // Route::post('/program/{id}', [ProgramController::class, 'updateStatus'])->middleware(RoleCheck::class.':admin,manager')->name('program.update.status');
+
+    Route::get('/bonus', [BonusController::class, 'showBonusQualifiedEmployees'])->middleware(RoleCheck::class.':admin,manager')->name('bonus.index');
 });
 
 require __DIR__.'/auth.php';

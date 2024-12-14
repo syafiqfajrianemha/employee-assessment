@@ -32,6 +32,27 @@ class UserSeeder extends Seeder
                 'role' => 'program',
                 'password' => Hash::make('12345678'),
             ],
+            [
+                'name' => 'Fundraising A',
+                'email' => 'fundraisinga@gmail.com',
+                'role' => 'fundraising',
+                'salary' => '2100000',
+                'password' => Hash::make('12345678'),
+            ],
+            [
+                'name' => 'Fundraising B',
+                'email' => 'fundraisingb@gmail.com',
+                'role' => 'fundraising',
+                'salary' => '2100000',
+                'password' => Hash::make('12345678'),
+            ],
+            [
+                'name' => 'Fundraising C',
+                'email' => 'fundraisingc@gmail.com',
+                'role' => 'fundraising',
+                'salary' => '2100000',
+                'password' => Hash::make('12345678'),
+            ],
         ]);
     }
 }

@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Program::class, 'assigns', 'user_id', 'program_id');
     }
+
+    public function performances()
+    {
+        return $this->hasMany(Performance::class);
+    }
 }

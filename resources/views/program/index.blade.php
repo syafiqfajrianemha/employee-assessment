@@ -46,7 +46,7 @@
                                     <td class="px-6 py-4 text-sm text-gray-700">{{ ++$no }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-700">{{ $program->name }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-700">{{ $program->purpose }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700">{{ $program->description }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ $program->description === null ? '-' : $program->description }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-700">{{ \Carbon\Carbon::parse($program->start_date)->translatedFormat('d F Y') }} - {{ \Carbon\Carbon::parse($program->end_date)->translatedFormat('d F Y') }} ({{ $program->duration }})</td>
                                     <td class="px-6 py-4 text-sm text-gray-700">
                                         @if ($program->status === 'waiting')

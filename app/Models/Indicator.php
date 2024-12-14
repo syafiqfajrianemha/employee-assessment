@@ -12,4 +12,9 @@ class Indicator extends Model
     {
         return $this->belongsTo(Program::class);
     }
+
+    public function performances()
+    {
+        return $this->hasMany(Performance::class);
+    }
 }

@@ -33,13 +33,13 @@
                     </div>
 
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('indicator.index')" :active="request()->routeIs('indicator.index')">
+                        <x-nav-link :href="route('calculate.index')" :active="request()->routeIs('calculate.index')">
                             {{ __('Calculate') }}
                         </x-nav-link>
                     </div>
 
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('indicator.index')" :active="request()->routeIs('indicator.index')">
+                        <x-nav-link :href="route('bonus.index')" :active="request()->routeIs('bonus.index')">
                             {{ __('Bonus') }}
                         </x-nav-link>
                     </div>
