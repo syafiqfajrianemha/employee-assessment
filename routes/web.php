@@ -49,12 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/assign/{id}', [AssignController::class, 'destroy'])->middleware(RoleCheck::class.':admin,manager')->name('assign.destroy');
 
     Route::get('/calculate', [PerformanceController::class, 'index'])->middleware(RoleCheck::class.':admin,manager')->name('calculate.index');
-    Route::post('/calculate', [PerformanceController::class, 'store'])->middleware(RoleCheck::class.':admin,manager')->name('calculate.store');
+    Route::post('/calculate', [PerformanceController::class, 'save'])->middleware(RoleCheck::class.':admin,manager')->name('calculate.save');
     Route::get('/calculate/create/{userId}/{programId}', [PerformanceController::class, 'create'])->middleware(RoleCheck::class.':admin,manager')->name('calculate.create');
-    // Route::get('/program/{id}', [ProgramController::class, 'edit'])->middleware(RoleCheck::class.':admin,program')->name('program.edit');
-    // Route::patch('/program/{id}', [ProgramController::class, 'update'])->middleware(RoleCheck::class.':admin,program')->name('program.update');
-    // Route::delete('/program/{id}', [ProgramController::class, 'destroy'])->middleware(RoleCheck::class.':admin,program')->name('program.destroy');
-    // Route::post('/program/{id}', [ProgramController::class, 'updateStatus'])->middleware(RoleCheck::class.':admin,manager')->name('program.update.status');
 
     Route::get('/bonus', [BonusController::class, 'showBonusQualifiedEmployees'])->middleware(RoleCheck::class.':admin,manager')->name('bonus.index');
 });

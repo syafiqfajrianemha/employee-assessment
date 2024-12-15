@@ -9,7 +9,7 @@
                         </h2>
 
                         <p class="mt-1 text-sm text-gray-600">
-                            {{ __("Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum nisi doloribus ea ex, sit voluptatibus saepe, aliquid magni ipsum fugit mollitia porro dolores pariatur non. Rem nihil mollitia eaque minima.") }}
+                            {{ __("Tugaskan Program berserta Indikator ke Karyawan Fundraising.") }}
                         </p>
                     </header>
 

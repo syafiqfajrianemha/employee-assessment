@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class IndicatorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $limit = 10;
@@ -23,9 +20,6 @@ class IndicatorController extends Controller
         return view('indicator.index', compact('indicators', 'no', 'programs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $programs = Program::where('status', 'approved')->get();
@@ -33,9 +27,6 @@ class IndicatorController extends Controller
         return view('indicator.create', compact('programs'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -61,17 +52,6 @@ class IndicatorController extends Controller
         return redirect(route('indicator.index', absolute: false))->with('message', 'Indikator Berhasil di Tambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Indicator $indicator)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $indicator = Indicator::findOrFail($id);
@@ -80,9 +60,6 @@ class IndicatorController extends Controller
         return view('indicator.edit', compact('indicator', 'programs'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $indicator = Indicator::findOrFail($id);
@@ -112,9 +89,6 @@ class IndicatorController extends Controller
         return redirect(route('indicator.index', absolute: false))->with('message', 'Indikator Berhasil di Edit');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $indicator = Indicator::findOrFail($id);
@@ -128,9 +102,6 @@ class IndicatorController extends Controller
         return redirect(route('indicator.index', absolute: false))->with('message', 'Indikator Berhasil di Hapus');
     }
 
-    /**
-     * Rekalibrasi rank indikator dalam program tertentu.
-     */
     protected function recalculateRanks($programId)
     {
         $indicators = Indicator::where('program_id', $programId)
@@ -142,9 +113,6 @@ class IndicatorController extends Controller
         }
     }
 
-    /**
-     * Rekalkulasi bobot ROC berdasarkan rank.
-     */
     protected function recalculateROCWeights($programId)
     {
         $indicators = Indicator::where('program_id', $programId)

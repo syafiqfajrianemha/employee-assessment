@@ -1,26 +1,20 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
-
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                @if (Auth::user()->role === 'manager')
+                @can ('access-manager')
                     <div class="p-6 text-gray-900">
                         {{ __("Dashboard Manager") }}
                     </div>
-                @endif
+                @endcan
 
-                @if (Auth::user()->role === 'program')
+                @can ('access-program')
                     <div class="p-6 text-gray-900">
                         {{ __("Dashboard Program") }}
                     </div>
-                @endif
+                @endcan
 
-                @if (Auth::user()->role === 'fundraising')
+                @can ('access-fundraising')
                         @forelse($programs as $program)
                             <div class="text-gray-900">
                                 <div class="m-6 border p-4 rounded">
@@ -106,7 +100,7 @@
                                 <p class="text-red-800">Belum Ada Program Satupun☹️</p>
                             </div>
                         @endforelse
-                @endif
+                @endcan
             </div>
         </div>
     </div>

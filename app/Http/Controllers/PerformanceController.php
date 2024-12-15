@@ -9,18 +9,13 @@ use Illuminate\Http\Request;
 
 class PerformanceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $assigns = Assign::all();
+
         return view('calculate.index', compact('assigns'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create($userId, $programId)
     {
         $performances = Performance::where('user_id', $userId)
@@ -33,10 +28,7 @@ class PerformanceController extends Controller
         return view('calculate.create', compact('performances', 'indicators', 'userId', 'programId'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function save(Request $request)
     {
         $validated = $request->validate([
             'performances.*.user_id' => 'required|exists:users,id',
@@ -63,37 +55,5 @@ class PerformanceController extends Controller
                 ]
             );
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Performance $performance)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Performance $performance)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Performance $performance)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Performance $performance)
-    {
-        //
     }
 }

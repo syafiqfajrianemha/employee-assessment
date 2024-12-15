@@ -13,7 +13,7 @@
                         </p>
                     </header>
 
-                    <form data-action="{{ route('calculate.store') }}" method="POST" class="mt-6 space-y-6" id="performanceForm">
+                    <form data-action="{{ route('calculate.save') }}" method="POST" class="mt-6 space-y-6" id="performanceForm">
                         @csrf
 
                         <table class="min-w-full bg-white border border-gray-200">
@@ -65,7 +65,6 @@
 
                         <div class="flex items-center gap-4">
                             <x-primary-button type="submit" class="btn-submit">{{ __('Simpan') }}</x-primary-button>
-                            {{-- <button type="button" id="savePerformance" class="px-4 py-2 mt-4 bg-blue-600 text-white rounded">Simpan</button> --}}
                         </div>
                     </form>
                 </div>
@@ -125,7 +124,6 @@
                         performances: performances,
                     },
                     success: function (response) {
-                        // Swal.fire('Berhasil', 'Data kinerja berhasil disimpan.', 'success');
                         Swal.fire({
                             icon: 'success',
                             title: 'Data Kinerja Berhasil di Simpan.',

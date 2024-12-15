@@ -1,20 +1,9 @@
 <x-app-layout>
     <div id="flash-data" data-flashdata="{{ session('message') }}"></div>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                {{-- <div class="pt-6 px-6 text-gray-900">
-                    <x-primary-href :href="route('program.index')">
-                        {{ __('⬅️ Kembali') }}
-                    </x-primary-href>
-                </div> --}}
-
                 <div class="overflow-x-auto p-6">
                     <table class="min-w-full bg-white border border-gray-200">
                         <thead>
@@ -35,14 +24,6 @@
                                         <x-primary-href :href="route('calculate.create', [$assign->user_id, $assign->program_id])" class="mb-2">
                                             {{ __('Hitung Kinerja') }}
                                         </x-primary-href>
-                                        {{-- <x-primary-href :href="route('assign.edit', $assign->id)" class="mb-2">
-                                            {{ __('Edit') }}
-                                        </x-primary-href>
-                                        <form action="{{ route('assign.destroy', $assign->id) }}" method="POST" class="form-delete">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">Hapus</button>
-                                        </form> --}}
                                     </td>
                                 </tr>
                             @empty

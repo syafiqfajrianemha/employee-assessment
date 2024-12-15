@@ -17,4 +17,9 @@ class Performance extends Model
     {
         return $this->belongsTo(Indicator::class);
     }
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class, 'program_id');
+    }
 }

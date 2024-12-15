@@ -1,21 +1,12 @@
 <x-app-layout>
     <div id="flash-data" data-flashdata="{{ session('message') }}"></div>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="pt-6 px-6 text-gray-900">
-                    {{-- {{ __("User Page.") }} --}}
-                    {{-- <button class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
-                        Tambah Data
-                    </button> --}}
                     <x-primary-href :href="route('register')">
-                        {{ __('Add User') }}
+                        {{ __('Tambah User') }}
                     </x-primary-href>
                 </div>
 
@@ -24,11 +15,11 @@
                         <thead>
                             <tr class="w-full bg-gray-100 border-b">
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">No</th>
-                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Name</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Nama</th>
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Email</th>
-                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Salary</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Gaji Pokok</th>
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Role</th>
-                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Action</th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,7 +39,7 @@
                                         <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="form-delete">
                                             @csrf
                                             @method("DELETE")
-                                            <button type="submit" class="px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">Delete</button>
+                                            <button type="submit" class="px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>

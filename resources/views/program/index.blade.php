@@ -1,19 +1,10 @@
 <x-app-layout>
     <div id="flash-data" data-flashdata="{{ session('message') }}"></div>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="pt-6 px-6 text-gray-900">
-                    {{-- {{ __("User Page.") }} --}}
-                    {{-- <button class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
-                        Tambah Data
-                    </button> --}}
                     @if (Auth::user()->role === 'program')
                         <x-primary-href :href="route('program.create')">
                             {{ __('Tambah Program') }}
@@ -57,7 +48,8 @@
                                             <span class="block bg-red-100 text-red-800 text-xs font-medium p-1 rounded dark:bg-red-900 dark:text-red-300">{{ $program->rejected_note }}</span>
                                         @endif
                                     </td>
-                                    @if (Auth::user()->role === 'program')
+
+                                    @can ('access-program')
                                         @if ($program->status !== 'approved')
                                             <td class="px-6 py-4 text-sm text-gray-700">
                                                 <x-primary-href :href="route('program.edit', $program->id)" class="mb-2">
@@ -70,9 +62,11 @@
                                                 </form>
                                             </td>
                                         @endif
+
                                         @if ($program->status === 'approved') <td class="px-6 py-4 text-sm text-gray-700">-</td> @endif
-                                    @endif
-                                    @if (Auth::user()->role === 'manager')
+                                    @endcan
+
+                                    @can ('access-manager')
                                         @if ($program->status !== 'approved' && $program->status !== 'rejected')
                                             <td class="px-6 py-4 text-sm text-gray-700">
                                                 <form action="{{ route('program.update.status', $program->id) }}" method="POST" class="form-approved">
@@ -88,6 +82,7 @@
                                                 </form>
                                             </td>
                                         @endif
+
                                         @if ($program->status === 'approved')
                                             <td class="px-6 py-4 text-sm text-gray-700">
                                                 <form action="{{ route('assign.store') }}" method="POST" class="form-assign" data-program-id="{{ $program->id }}" data-program-name="{{ $program->name }}">
@@ -98,7 +93,7 @@
                                                 </form>
                                             </td>
                                         @endif
-                                    @endif
+                                    @endcan
                                 </tr>
                             @empty
                                 <tr class="border-b hover:bg-gray-50">
@@ -121,26 +116,22 @@
         <script>
             $(document).ready(function() {
                 $('.form-assign button').on('click', function(e) {
-                    e.preventDefault(); // Mencegah submit form langsung
+                    e.preventDefault();
 
-                    // Ambil form terkait tombol yang diklik
                     const form = $(this).closest('.form-assign');
                     const programId = form.data('program-id');
                     const programName = form.data('program-name');
 
-                    // Ambil data users dari server
                     $.ajax({
-                        url: '{{ route("users.get") }}', // Pastikan route ini mengembalikan data users
+                        url: '{{ route("users.get") }}',
                         type: 'GET',
                         success: function(users) {
-                            // Buat select option HTML
                             let selectOptions = '<select id="userSelect" class="swal2-input">';
                             users.forEach(function(user) {
                                 selectOptions += `<option value="${user.id}">${user.name}</option>`;
                             });
                             selectOptions += '</select>';
 
-                            // Tampilkan SweetAlert dengan select
                             Swal.fire({
                                 title: `${programName} Akan Di Assign Ke`,
                                 html: selectOptions,
@@ -158,10 +149,8 @@
                                 if (result.isConfirmed) {
                                     const selectedUserId = result.value;
 
-                                    // Isi input hidden `user_id` dengan user yang dipilih
                                     form.find('.user_id').val(selectedUserId);
 
-                                    // Submit form
                                     form.submit();
                                 }
                             });

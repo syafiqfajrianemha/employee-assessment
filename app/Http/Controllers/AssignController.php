@@ -9,26 +9,12 @@ use Illuminate\Http\Request;
 
 class AssignController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $assigns = Assign::all();
         return view('assign.index', compact('assigns'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -44,17 +30,6 @@ class AssignController extends Controller
         return redirect(route('program.index', absolute: false))->with('message', 'Program Berhasil di Assign ke Karyawan Fundraising');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Assign $assign)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $assign = Assign::findOrFail($id);
@@ -64,9 +39,6 @@ class AssignController extends Controller
         return view('assign.edit', compact('assign', 'programs', 'users'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -84,9 +56,6 @@ class AssignController extends Controller
         return redirect(route('assign.index', absolute: false))->with('message', 'Assign Berhasil di Edit');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $assign = Assign::findOrFail($id);
