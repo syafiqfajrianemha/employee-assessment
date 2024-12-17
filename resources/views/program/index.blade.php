@@ -45,7 +45,7 @@
                                         @elseif ($program->status === 'approved')
                                             <span class="block text-center bg-green-100 text-green-800 text-xs font-medium p-1 rounded dark:bg-green-900 dark:text-green-300">Disetujui</span>
                                         @elseif ($program->status === 'rejected')
-                                            <span class="block bg-red-100 text-red-800 text-xs font-medium p-1 rounded dark:bg-red-900 dark:text-red-300">{{ $program->rejected_note }}</span>
+                                            <span class="block text-center bg-red-100 text-red-800 text-xs font-medium p-1 rounded dark:bg-red-900 dark:text-red-300">Ditolak</span>
                                         @endif
                                     </td>
 

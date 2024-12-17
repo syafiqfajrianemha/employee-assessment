@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Performance;
-use App\Models\Program;
-use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class BonusController extends Controller
 {
     public function showBonusQualifiedEmployees()
     {
-        $employees = User::with(['performances.program'])
-            ->where('role', 'fundraising')
-            ->select('id', 'name', 'salary')
-            ->addSelect([
-                'program_name' => Program::select('name')
-                    ->whereColumn('programs.id', 'performances.program_id')
-                    ->limit(1),
-                'total_final_score' => Performance::selectRaw('SUM(final_score)')
-                    ->whereColumn('performances.user_id', 'users.id')
-            ])
-            ->groupBy('id', 'name', 'salary', 'program_name')
-            ->havingRaw('SUM(final_score) > 100')
+        $employees = DB::table('users')
+            ->join('performances', 'users.id', '=', 'performances.user_id')
+            ->join('programs', 'performances.program_id', '=', 'programs.id')
+            ->select(
+                'users.id',
+                'users.name',
+                'users.salary',
+                'programs.name as program_name',
+                DB::raw('SUM(performances.final_score) as total_final_score')
+            )
+            ->where('users.role', 'fundraising')
+            ->groupBy('users.id', 'users.name', 'users.salary', 'programs.name')
+            ->havingRaw('SUM(performances.final_score) > 100')
             ->get();
 
         $employees->transform(function ($employee) {
