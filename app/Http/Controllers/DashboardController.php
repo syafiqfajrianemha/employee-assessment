@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Program;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -9,6 +10,11 @@ class DashboardController extends Controller
     public function index()
     {
         $user = auth()->user();
+
+        if ($user->role === 'manager') {
+            $totalWaitingPrograms = Program::where('status', 'waiting')->count();
+            return view('dashboard', compact('totalWaitingPrograms'));
+        }
 
         if ($user->role === 'fundraising') {
             $programs = $user->assignedPrograms()->with(['indicators.performances'])->get();
@@ -49,6 +55,11 @@ class DashboardController extends Controller
             });
 
             return view('dashboard', compact('programs', 'employees'));
+        }
+
+        if ($user->role === 'program') {
+            $totalApprovedPrograms = Program::where('status', 'approved')->count();
+            return view('dashboard', compact('totalApprovedPrograms'));
         }
 
         return view('dashboard');

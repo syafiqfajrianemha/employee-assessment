@@ -3,14 +3,24 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 @can ('access-manager')
-                    <div class="p-6 text-gray-900">
-                        {{ __("Dashboard Manager") }}
+                    <div class="p-6">
+                        <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">🕒 Menunggu Persetujuan</h5>
+                            <a href="{{ route('program.index') }}">
+                                <p class="font-normal text-xl text-gray-700 dark:text-gray-400">{{ $totalWaitingPrograms }} Program</p>
+                            </a>
+                        </div>
                     </div>
                 @endcan
 
                 @can ('access-program')
-                    <div class="p-6 text-gray-900">
-                        {{ __("Dashboard Program") }}
+                    <div class="p-6">
+                        <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">✅ Disetuji Manajer</h5>
+                            <a href="{{ route('program.index') }}">
+                                <p class="font-normal text-xl text-gray-700 dark:text-gray-400">{{ $totalApprovedPrograms }} Program</p>
+                            </a>
+                        </div>
                     </div>
                 @endcan
 
